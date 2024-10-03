@@ -1,0 +1,11 @@
+{
+  "serverlessConsole.services": [
+    {
+      "type": "dynamodb",
+      "title": "AuctionsTable",
+      "tableName": "AuctionsTable",
+      "awsProfile": "default",
+      "region": "us-east-1"
+    }
+  ]
+}
