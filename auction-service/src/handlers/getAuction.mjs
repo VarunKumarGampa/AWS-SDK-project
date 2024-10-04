@@ -3,14 +3,12 @@ import middy from "@middy/core";
 import httpEventNormalizer from "@middy/http-event-normalizer";
 import httpErrorHandler from "@middy/http-error-handler";
 import httpJsonBodyParser from "@middy/http-json-body-parser";
-import createError from "http-error"; // This package allows us to crate http error in a very declarative way, rather than returning status code
+import createError from "http-errors"; // This package allows us to crate http error in a very declarative way, rather than returning status code
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-async function getAuction(event, context) {
+export async function getAuctionById(id) {
   let auction;
-  const { id } = event.pathParameters;
-
   try {
     const result = await dynamodb
       .get({
@@ -27,6 +25,13 @@ async function getAuction(event, context) {
   if (!auction) {
     throw new createError.NotFound(`Auction with this "${id}" is not found`);
   }
+
+  return auction;
+}
+
+async function getAuction(event, context) {
+  const { id } = event.pathParameters;
+  const auction = await getAuctionById(id);
 
   return {
     statusCode: 200,

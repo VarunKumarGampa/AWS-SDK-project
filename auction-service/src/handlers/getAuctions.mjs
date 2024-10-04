@@ -3,7 +3,7 @@ import middy from "@middy/core";
 import httpEventNormalizer from "@middy/http-event-normalizer";
 import httpErrorHandler from "@middy/http-error-handler";
 import httpJsonBodyParser from "@middy/http-json-body-parser";
-import createError from "http-error"; // This package allows us to crate http error in a very declarative way, rather than returning status code
+import createError from "http-errors"; // This package allows us to crate http error in a very declarative way, rather than returning status code
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
